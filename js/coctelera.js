@@ -140,7 +140,7 @@ Physics(function(world){
     if(deltaX !=0 || deltaY != 0 || deltaZ != 0) console.log(deltaX,deltaY,deltaZ,moveCounter);
    
     if(moveCounter > 1) {
-      alert(deltaX, deltaY, deltaZ);
+      $('#viewport').html("Se movió!\n"deltaX+"\n"+deltaY+"\n"+deltaZ+"\n");
       moveCounter=0;
     }
    
