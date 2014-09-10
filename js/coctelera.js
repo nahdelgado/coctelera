@@ -140,8 +140,7 @@ Physics(function(world){
     if(deltaX !=0 || deltaY != 0 || deltaZ != 0) console.log(deltaX,deltaY,deltaZ,moveCounter);
    
     if(moveCounter > 1) {
-      debugger;
-      shuffleNumber();
+      alert(deltaX, deltaY, deltaZ);
       moveCounter=0;
     }
    
