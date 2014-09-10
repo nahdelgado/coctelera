@@ -15,8 +15,8 @@
       Nah
     </author>
 
-    <gap:platform name="android"/>
+    <gap:platform name="android" />
 
     <!-- We'll include the Barcode plugin as an example -->
-    <gap:plugin name="com.phonegap.plugins.device-motion" />
+    <gap:plugin name="org.apache.cordova.device-motion" version="0.2.6" />
 </widget>
