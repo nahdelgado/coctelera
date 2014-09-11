@@ -149,6 +149,10 @@ $(document).bind('deviceready', function() {
       lastY = a.y;
       lastZ = a.z;
     }
+
+    function errHandler() {
+      console.log("No se pudo obtener la aceleración.");
+    }
     navigator.accelerometer.watchAcceleration(gotMovement, errHandler,{frequency:200});
   });
 });
