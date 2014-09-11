@@ -17,6 +17,8 @@
 
     <gap:platform name="android" />
 
+    <feature name="http://api.phonegap.com/1.0/accelerometer" />
+
     <!-- We'll include the Barcode plugin as an example -->
     <gap:plugin name="org.apache.cordova.device-motion" version="0.2.6" />
 </widget>
