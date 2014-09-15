@@ -44,18 +44,19 @@ $(document).bind('deviceready', function() {
     // constrain objects to these bounds
     world.add(Physics.behavior('edge-collision-detection', {
         aabb: viewportBounds,
-        restitution: 0.7,
-        cof: 0.4
+        restitution: 0.6,
+        cof: 0.5
     }));
 
     // add some circles
     for(var i = 0; i < 10; i++) {
-      b = Physics.body('circle', {
-        x: 50, // x-coordinate
-        y: 30, // y-coordinate
+      b = Physics.body('rectangle', {
+        x: (i*10), // x-coordinate
+        y: (i*10), // y-coordinate
         vx: 0.2, // velocity in x-direction
         vy: 0.01, // velocity in y-direction
-        radius: 20,
+        width: 40, 
+        height: 40,
         styles: {
           fillStyle: colors[ i % 10 ]
         }
