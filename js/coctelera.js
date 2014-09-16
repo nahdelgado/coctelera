@@ -44,8 +44,8 @@ $(document).bind('deviceready', function() {
     // constrain objects to these bounds
     world.add(Physics.behavior('edge-collision-detection', {
         aabb: viewportBounds,
-        restitution: 0.6,
-        cof: 0.5
+        restitution: 0.5,
+        cof: 0.6
     }));
 
     // add some circles
@@ -83,27 +83,33 @@ $(document).bind('deviceready', function() {
 
     window.addEventListener('deviceorientation', function(eventData) {
       // gamma is the left-to-right tilt in degrees, where right is positive
-      // var tiltLR = eventData.gamma;
+      var gamma = eventData.gamma,
 
       // beta is the front-to-back tilt in degrees, where front is positive
-      // var tiltFB = eventData.beta;
+          beta = eventData.beta,
 
       // alpha is the compass direction the device is facing in degrees
-      var dir = eventData.alpha
+          alpha = eventData.alpha;
 
       // deviceorientation does not provide this data
       // var motUD = null;
 
       // call our orientation event handler
-      deviceOrientationHandler(dir);
+      deviceOrientationHandler(alpha, beta, gamma);
     }, false);
 
-    function deviceOrientationHandler(dir) {
-      var rad = dir * (Math.PI / 180),
-          cosT = Math.cos(rad),
-          sinT = Math.sin(rad),
-          x = -0.0004 * sinT,
-          y = 0.0004 * cosT;
+    function deviceOrientationHandler(alpha, beta, gamma) {
+      var alphaR = alpha * (Math.PI / 180),
+          betaR = beta * (Math.PI / 180),
+          gammaR = gamma * (Math.PI / 180),
+          sinA = Math.sin(alphaR),
+          cosA = Math.cos(alphaR),
+          sinB = Math.sin(betaR),
+          cosB = Math.cos(betaR),
+          sinG = Math.sin(gammaR),
+          cosG = Math.cos(gammaR),
+          x = 0.0004 * sinG * cosB,
+          y = 0.0004 * ((cosG * cosA) + (sinG * sinB * sinA));
           world.getBehaviors()[4].setAcceleration({x: x, y: y});
     }
 
