@@ -83,13 +83,13 @@ $(document).bind('deviceready', function() {
 
     window.addEventListener('deviceorientation', function(eventData) {
       // gamma is the left-to-right tilt in degrees, where right is positive
-      var beta = eventData.gamma,
+      var gamma = eventData.gamma,
 
       // beta is the front-to-back tilt in degrees, where front is positive
           alpha = eventData.beta,
 
       // alpha is the compass direction the device is facing in degrees
-          gamma = eventData.alpha;
+          beta = eventData.alpha;
 
       // deviceorientation does not provide this data
       // var motUD = null;
