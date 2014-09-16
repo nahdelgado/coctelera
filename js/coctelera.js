@@ -81,9 +81,6 @@ $(document).bind('deviceready', function() {
         world.step( time );
     });
 
-    // start the ticker
-    Physics.util.ticker.start();
-
     window.addEventListener('deviceorientation', function(eventData) {
       // gamma is the left-to-right tilt in degrees, where right is positive
       // var tiltLR = eventData.gamma;
@@ -154,6 +151,8 @@ $(document).bind('deviceready', function() {
     function errHandler() {
       console.log("No se pudo obtener la aceleración.");
     }
+    // start the ticker
+    Physics.util.ticker.start();
     navigator.accelerometer.watchAcceleration(gotMovement, errHandler,{frequency:200});
   });
 });
