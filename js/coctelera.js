@@ -99,7 +99,7 @@ $(document).bind('deviceready', function() {
     }, false);
 
     function deviceOrientationHandler(alpha, beta, gamma) {
-      var alphaR = alpha * (Math.PI / 180),
+      var alphaR = (alpha - 90) * (Math.PI / 180),
           betaR = beta * (Math.PI / 180),
           gammaR = gamma * (Math.PI / 180),
           sinA = Math.sin(alphaR),
