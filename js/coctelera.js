@@ -73,7 +73,7 @@ $(document).bind('deviceready', function() {
 
     // add some gravity
     gravity = Physics.behavior('constant-acceleration');
-    world.add( gravity );
+    // world.add( gravity );
 
     // subscribe to ticker to advance the simulation
     Physics.util.ticker.on(function( time, dt ){
@@ -81,22 +81,22 @@ $(document).bind('deviceready', function() {
         world.step( time );
     });
 
-    window.addEventListener('deviceorientation', function(eventData) {
-      // gamma is the left-to-right tilt in degrees, where right is positive
-      var beta = eventData.gamma,
+    // window.addEventListener('deviceorientation', function(eventData) {
+    //   // gamma is the left-to-right tilt in degrees, where right is positive
+    //   var beta = eventData.gamma,
 
-      // beta is the front-to-back tilt in degrees, where front is positive
-          alpha = eventData.beta,
+    //   // beta is the front-to-back tilt in degrees, where front is positive
+    //       alpha = eventData.beta,
 
-      // alpha is the compass direction the device is facing in degrees
-          gamma = eventData.alpha;
+    //   // alpha is the compass direction the device is facing in degrees
+    //       gamma = eventData.alpha;
 
-      // deviceorientation does not provide this data
-      // var motUD = null;
+    //   // deviceorientation does not provide this data
+    //   // var motUD = null;
 
-      // call our orientation event handler
-      deviceOrientationHandler(alpha, beta, gamma);
-    }, false);
+    //   // call our orientation event handler
+    //   deviceOrientationHandler(alpha, beta, gamma);
+    // }, false);
 
     function deviceOrientationHandler(alpha, beta, gamma) {
       var alphaR = (alpha - 90) * (Math.PI / 180),
@@ -114,27 +114,24 @@ $(document).bind('deviceready', function() {
     }
 
     var lastX,lastY,lastZ,
-        paused,
+        paused = false,
         moveCounter = 0;
-
-    function clearPause() {
-      paused = false;
-    }
      
     function gotMovement(a) {
+      if (paused)
+        return;
       paused = true;
-      window.setTimeout(clearPause, 2000);
       if(!lastX) {
         lastX = a.x;
         lastY = a.y;
         lastZ = a.z;
+        paused = false;
         return;
       }
      
-      var deltaX, deltaY, deltaZ;
-      deltaX = Math.abs(a.x-lastX);
-      deltaY = Math.abs(a.y-lastY);
-      deltaZ = Math.abs(a.z-lastZ);
+      var deltaX = Math.abs(a.x-lastX),
+          deltaY = Math.abs(a.y-lastY),
+          deltaZ = Math.abs(a.z-lastZ);
      
       if(deltaX + deltaY + deltaZ > 3) {
         moveCounter++;
@@ -145,13 +142,18 @@ $(document).bind('deviceready', function() {
       if(deltaX !=0 || deltaY != 0 || deltaZ != 0) console.log(deltaX,deltaY,deltaZ,moveCounter);
      
       if(moveCounter > 1) {
-        $('#test').html("Se movio!\n"+deltaX+"\n"+deltaY+"\n"+deltaZ+"\n");
+        bodies = world.getBodies();
+        for(var i = 0; i < 10; i++) {
+          bodies[i].applyForce({x: deltaX, y: deltaY});
+        }
         moveCounter=0;
       }
      
       lastX = a.x;
       lastY = a.y;
       lastZ = a.z;
+
+      paused = false;
     }
 
     function errHandler() {
