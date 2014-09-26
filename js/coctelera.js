@@ -49,6 +49,7 @@ $(document).bind('deviceready', function() {
     }));
 
     // add some circles
+    var b;
     for(var i = 0; i < 10; i++) {
       b = Physics.body('rectangle', {
         x: (i*10), // x-coordinate
@@ -60,7 +61,7 @@ $(document).bind('deviceready', function() {
         styles: {
           fillStyle: colors[ i % 10 ]
         }
-      })
+      });
       bodies.push(b);
     }
     world.add(bodies);
@@ -115,7 +116,8 @@ $(document).bind('deviceready', function() {
 
     var lastX,lastY,lastZ,
         paused = false,
-        moveCounter = 0;
+        moveCounter = 0,
+        TOLERANCE = 8;
      
     function gotMovement(a) {
       if (paused)
@@ -133,7 +135,7 @@ $(document).bind('deviceready', function() {
           deltaY = Math.abs(a.y-lastY),
           deltaZ = Math.abs(a.z-lastZ);
      
-      if(deltaX + deltaY + deltaZ > 3) {
+      if(deltaX + deltaY + deltaZ > TOLERANCE) {
         moveCounter++;
       } else {
         moveCounter = Math.max(0, --moveCounter);
